@@ -4,7 +4,7 @@ const arr = [20, -5, 20, -22, 10, 50];
 // We could also just use any builtin sort method an return arr[arr.lengtg - 2];
 // But that would be suboptimal as the fastest sorting algorithm is O(N log N) 
 // And we don't even need to have the array sorted
-(function findSecondLargest() {
+(function findSecondLargest(arr) {
     if (!Array.isArray(arr) || arr.length < 2 || !arr.every(e => typeof e === 'number')) {
         console.error('Invalid array');
         return;

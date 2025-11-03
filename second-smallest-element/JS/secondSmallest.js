@@ -1,6 +1,6 @@
 const arr = [20, -5, 20, -22, 10, 50];
 
-(function findSecondSmallest() {
+(function findSecondSmallest(arr) {
     if (!Array.isArray(arr) || arr.length < 2 || !arr.every(e => typeof e === 'number')) {
         console.error('Invalid array');
         return;
@@ -13,7 +13,7 @@ const arr = [20, -5, 20, -22, 10, 50];
             secondSmallest = smallest;
             smallest = el;
         } else if (el > smallest && el < secondSmallest) {
-            secondLargest = el;
+            secondSmallest = el;
         }
     }
     console.log(`Second smallest element is: ${secondSmallest}`);
