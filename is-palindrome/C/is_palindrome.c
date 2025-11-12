@@ -1,43 +1,53 @@
-// Task: move all zeros to the end of the array
+// --
+// Task: Is it palindrome?
+// --
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
+#include <ctype.h>
 
-#define ARR_SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
-
-// --
-// 1. Function prototypes
-// --
-bool move_all_zeros(int *arr, size_t arr_size)
-{
-    if (arr == NULL || arr_size < 2) {
-        fprintf(stderr, "error: invalid array\n");
+// Checks if a string is a palindrome (case-insensitive).
+// Also sets *valid = false if input is invalid.
+bool is_palindrome(const char *str, bool *valid) {
+    if (!str || *str == '\0') {
+        *valid = false;
         return false;
     }
-    
-    size_t pos = 0;
-    for (size_t i = 0; i < arr_size; i++) {
-        if (arr[i] != 0) arr[pos++] = arr[i];
-    }
+    *valid = true;
 
-    while (pos < arr_size) arr[pos++] = 0;
+    size_t i = 0;
+    size_t j = strlen(str) - 1;
+
+    while (i < j) {
+        char a = tolower((unsigned char)str[i]);
+        char b = tolower((unsigned char)str[j]);
+        if (a != b) return false;
+        i++;
+        j--;
+    }
     return true;
 }
 
-void print_arr(int *arr, size_t arr_size)
-{
-    for (size_t i = 0; i < arr_size; i++) 
-        printf("%d ", arr[i]);
-    printf("\n");
-}
+int main(int argc, char **argv) {
+    const char *str = NULL;
 
-int main(void)
-{
-    // Array for testing 
-    int arr[] = {0, 12, 5, -5, 1, 0, 10, 0, 5};
-    
-    if (move_all_zeros(arr, ARR_SIZE(arr))) 
-        print_arr(arr, ARR_SIZE(arr));
+    if (argc == 1) {
+        str = "Abba"; // default value
+        puts("[warning]: no CLA provided, using default word 'Abba'");
+    } else {
+        str = argv[1];
+    }
+
+    bool valid = false;
+    bool result = is_palindrome(str, &valid);
+
+    if (!valid) {
+        fprintf(stderr, "Invalid input string.\n");
+        return EXIT_FAILURE;
+    }
+
+    printf("[%s] is %s palindrome.\n", str, result ? "a" : "NOT a");
     return EXIT_SUCCESS;
 }
